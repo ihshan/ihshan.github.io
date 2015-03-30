@@ -1,1 +1,968 @@
-hello world!
+
+
+<!DOCTYPE html>
+<html class="page-login">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+
+
+
+<script>
+var privilegArray_taglibs = new Array();
+
+
+Array.prototype.isContact = function(e) {
+	for(var i=0;i<this.length;i++){  
+		if(this[i] == e)  return true;  
+	}  
+	return false;  
+}
+</script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>天翼流量800 - 翼企购</title>
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<link rel="stylesheet" type="text/css" href="css/table.css"> 
+	<link rel="stylesheet" type="text/css" href="css/header_pay.css"> 
+	<link rel="stylesheet" type="text/css" href="css/purchaseSelection.css"> 
+  </head>
+  <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+  <script type="text/javascript" src="js/jquery.cookie.js"></script>
+  <script type="text/javascript" src="js/ajaxfileupload.js"></script>
+  <script type="text/javascript" src="js/table.js"></script>
+  <script type="text/javascript" src="js/number.js"></script>
+  
+  <style type="text/css">
+body{background-color: #fcfcfc;}
+.pur-pic{width: 100%;margin: auto auto;height: 320px;background: #000 url("images/banner.jpg") no-repeat center;margin-top:-32px;}
+.td-h{height: 40px;}
+.onPoint{color: #00a4eb;}
+.onPoint:hover{color: #1aadc3;text-decoration: underline;}
+/** 数量加减样式**/
+.ul_traffic_ipt .f_l{float:left;}
+.ul_traffic_ipt .add_chose{width:600px;}
+.ul_traffic_ipt .add_chose a{float:left;display:block;width: 40px;height: 40px;line-height:99em;overflow:hidden;background:url(images/T-icon12.png) no-repeat;}
+.ul_traffic_ipt .add_chose a.reduce{background-position:1px 0;}
+.ul_traffic_ipt .add_chose a.reduce:hover{background-position:-49px 0;}
+.ul_traffic_ipt .add_chose a.add{background-position:-1px -50px;}
+.ul_traffic_ipt .add_chose a.add:hover{background-position: -51px -50px;}
+.ul_traffic_ipt .add_chose input._trafficNum{float:left;width:80px;height:28px;line-height: 28px;margin-top:0px;font-size:20px;padding:5px 10px;text-align:center;}
+.ul_traffic_ipt .add_chose div._trafficText{height: 40px;line-height: 40px;font-size: 20px;color: #333;margin: 0px 5px}
+
+/** 数量加减样式**/
+</style>
+  <body>
+    
+<!DOCTYPE HTML>
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+
+
+<script>
+var privilegArray_taglibs = new Array();
+
+
+Array.prototype.isContact = function(e) {
+	for(var i=0;i<this.length;i++){  
+		if(this[i] == e)  return true;  
+	}  
+	return false;  
+}
+</script>
+
+
+    <base href="http://800.189.cn:80/">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/common.css"> 
+    <link rel="stylesheet" type="text/css" href="css/header_pay.css"> 
+    <script type="text/javascript" src="js/header.js"></script>
+  </head>
+	<!--头部-->
+	<div class="header">
+		<!--导航栏-->
+		<div class="op-nav">
+            <!-- 顶部导航 -->
+            <div class="op-topnav">
+                <div class="op-topnavbar">
+                	<li>
+                		
+						   
+						
+                	</li>
+                    <li><span>|</span><a href="/payonline/toIndexPage.do">用户中心</a></li>
+                	<li><span>|</span><a href="/payonline/purchase/index.do" style="color: #00a4eb;">购流量</a></li>
+                    <li><span>|</span><a href="/payonline/purchase/buyCarRecordIndex.do?orderId=0"><img src="images/icon19.png"/>购物车（<font color="red" id="buyCar_count_id">0</font>）</a></li>
+                    <li class="menu-sp"><span style="color:#AAAAAA">您好，</span>
+                    	
+						   
+						    
+								<a href="/payonline/usercommon/toLoginPage.do" style="color:#ff6600">请登录</a>
+						   
+						
+                    </li>
+                    <li style="float: left;"><img src="images/logo3.png" style="margin-top: 3px;cursor: pointer;" onclick="link800();"/></li>
+                    <li style="clear: both;"></li>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <!-- End 顶部导航 -->
+      </div>
+		<!--End 导航栏-->
+    </div>
+    <div>
+    	<div class="overlay"></div>
+		<div id="AjaxLoading" class="showbox">
+			<div class="loadingWord"><img src="images/waiting.gif">加载中，请稍候...</div>
+		</div>
+    </div>
+    <script type="text/javascript">
+	$(function(){
+		$.ajax({
+			url : "/payonline/purchase/getUnPayCount.do", 
+			type:"post",
+			data: {'ssid': getClientSsid()},
+			dataType:"json",
+			success:function(data){
+				//$("#buyCar_count_id").text(data);
+			}
+		}); 
+		
+		$('.op-topnavbar li > a').bind("click",function(){
+			var old_href =  $(this).attr("href");
+			var idx = old_href.indexOf("?");
+			if(idx != -1){
+				$(this).attr("href", $(this).attr("href") + "&ssid=" + getClientSsid());
+			}else{
+				$(this).attr("href", $(this).attr("href") + "?ssid=" + getClientSsid());
+			}
+		});
+		
+		//密码过期提示
+		var pwdHasExpired = ""; 
+		if(pwdHasExpired == 'true'){
+			alert("您的登录密码已使用满90天，为了账号安全使用，请及时修改！");
+			$.post("/payonline/usercommon/saveUpdatePwdRecord.do", {'ssid': getClientSsid()},function(data){
+				data = $.parseJSON(data);
+				if( !checkLoginStatus(data, "")){
+					return ;
+				}
+				return ;
+			});
+		}
+	});
+</script>
+
+
+    <div class="pur-pic"></div>
+    <div class="content">
+    	<!-- 客服-->
+    	<div id="customerService_id" class="customerService">
+    		<div onclick="closeCustomerService()" class="customerService_sub">
+    			
+    		</div>
+    		<div style="margin:0 auto;margin-top:80px;width:100px;font-size:12px;color:#ff6600;text-align: center">020-8511 5363</div>
+    	</div>
+    	 
+    	<form id="uploadUsers_form_purchaseSelection" method="post">
+    		<input name="operator" type="text" style="display:none;"/>
+    	<div class="tab_parent">
+    		<div class="tabs_optr">
+    			<div class="tab disableTab" id="tab_1_id">
+    				<div class="tab_1_logo tab_logo"></div>
+    				<div class="tab_text">电信流量</div>
+    				<div class="disableTab_tip"></div>
+    			</div>
+    			<div class="tab_1_triangle" style="display: none;"></div>
+    			
+    			<div class="tab disableTab" id="tab_2_id">
+    				<div class="tab_2_logo tab_logo"></div>
+    				<div class="tab_text">联通流量</div>
+    				<div class="disableTab_tip"></div>
+    			</div>
+    			<div class="tab_2_triangle" style="display: none;"></div>
+    			
+    			<div class="tab disableTab" id="tab_3_id">
+    				<div class="tab_3_logo tab_logo"></div>
+    				<div class="tab_text">移动流量</div>
+    				<div class="disableTab_tip"></div>
+    			</div>
+    			<div class="tab_3_triangle" style="display: none;"></div>
+    			
+    		</div>
+    	</div>
+    	<!-- 选择流量规格 -->
+    	<div class="select_traffic">
+    		<div class="list_img" style="margin-top: 2px;"></div>
+    		<div class="ul_traffic">
+    			<div class="list_title">请选择流量包</div>
+    			<div style="margin-top:10px;line-height: 24px"><span id="traffic_tip_id"></span></div>
+    			<input type="hidden" name="platOfferId"/>
+    			<input type="hidden" name="traffic"/>
+    			<input type="hidden" name="price"/>
+    			<div id="traffic_goods_id_2"></div>
+    		</div>
+    		<!-- 分割线 -->
+    		<div style="height:30px;width:100%;"></div>
+    		<div class="list_img" style="margin-top: 7.5px;"></div>
+    		<div class="ul_traffic">
+	    		<div class="list_title" style="width: auto;height: 40px;line-height: 40px;">我要购买</div>
+	    		<div class="ul_traffic_ipt" style="padding-left: 5px;padding-top: 1px;">
+		    		<div class="f_l add_chose">
+						<a class="reduce" onClick="doReduceOrAddCount(1)" href="javascript:void(0)"></a>
+						<input id="trafficNum_purchaseSelection" class="_trafficNum" name="trafficNum" type="text" value="1" maxlength="5" 
+							onchange="doActAmount()" onkeyup="onkeyupDoValue(this)" onafterpaste="this.value=this.value.replace(/[^\d]/g,'')"/>
+						<a class="add" onClick="doReduceOrAddCount(2)" href="javascript:void(0)"></a>
+						<div class="_trafficText f_l">个流量包<span style="font-size: 14px;">（每次限购10000个）</span></div>
+					</div>
+	    		</div>
+    		</div>
+    		
+    		<!-- 分割线 -->
+    		<div style="height:30px;width:100%;margin-bottom:30px;border-bottom: 1px dashed #dcdcdc"></div>
+    		<div style="width:730px;height: 40px;line-height: 40px;margin: 0px 0px 20px 0px;">
+    			<div style="font-weight:border;width:100%;margin-left: 30px;">
+    				<div style="float: left;height: 32px;margin-top: 8px;">实付款：</div>
+	    			<div style="float: left;font-size:24px;color:#ff6600;height: 40px;line-height: 40px;">
+		    			<div style="float: left;margin-top: 5px;">￥</div>
+		    			<div id="actually_paid_id" style="float:left;height:40px;line-height:40px;">
+			    			<div style='float: left;font-size: 40px;color:#ff6600;l'>0</div>
+			    			<div style='float: left;font-size: 24px;color:#ff6600;'>.00</div>
+		    			</div>
+		    			<div style="clear: both;"></div>
+		    		</div>
+    			</div>
+    		</div>
+    		<div style="width:730px;">
+	   			<div class="addcarButton" id="addToBuyCar_btn_id" onclick="addToBuyCar()">加入购物车</div>  
+	    		<div class="addcarButton" onclick="goBuyOrder()">立即购买</div>
+	    		<div style="clear: both;"></div>
+   			</div>
+   			<div style="clear: both;"></div>
+   		</div>
+   		<div style="clear: both;"></div>
+    	</form>
+    	<!-- 购物车-->
+    	<div id="buyCar_tab_id" class="buyCar_tab" onclick="showBuyCarDetail(this)">
+    		<div style="width:20px; height:16px;margin-top:13px;margin-left:10px;float:left;"><img alt="" src="images/index_icon7.png"></div>
+    		<div class="buyCar_tab_num" id="buyCar_tab_num">0</div>
+    	</div>
+    	<div id="buyCar_list_id" class="right" style="display:none;height:820px"> 
+	  		<div style="width:225px;color:#333;font-size:14px;font-weight:bolder;margin:20px 10px 16px 10px;background: none;">
+				购物车<span style="color:#333; font-size:12px;">（<span id="car_orders_id">0</span>个）</span>
+				<span style="float:right;cursor: pointer;">
+					<div class="hideBuyCarClass" src="images/index_icon9.png" onclick="hideBuyCarDetail()"></div>
+				</span>
+			</div>
+			<div class="car_good" id="car_goods_id">
+  				<div id="goods_list_id"></div>
+				<div id="isShowShopCarBtn_0" class="corfirmOrder_class" style="display:none;float:left;">
+					<div style="width:100%;margin-left:22px;margin-top:10px;margin-bottom:10px;color:#333;font-size:12px;">共计：
+	  				</div>
+	  				<div style="width:100%;margin-left:22px;margin-top:10px;margin-bottom:10px;color:#333;font-size:12px;">
+		   					<span class="numberIcon">￥</span><span id="car_orders_amount_id" class="numberColor"></span>
+	  				</div>
+	  				<div class="go-button" id="corfirmOrder_id">结算</div>
+				</div>
+			</div>
+		</div>
+    	<!-- 客服 -->
+    	<div>
+    	</div>
+   	</div>
+    <input type="hidden" name="selectTraffic_ctcc" id="selectTraffic_1"/>
+    <input type="hidden" name="selectTraffic_cucc" id="selectTraffic_2"/>
+    <input type="hidden" name="selectTraffic_cmcc" id="selectTraffic_3"/>
+    <input type="hidden" name="buyCtcc_num_1" id="buyCtcc_num_1" value="1"/>
+    <input type="hidden" name="buyCucc_num_2" id="buyCucc_num_2" value="1"/>
+    <input type="hidden" name="buyCmcc_3" id="buyCmcc_num_3" value="1"/>
+    <div>
+	    
+
+
+
+<script>
+var privilegArray_taglibs = new Array();
+
+
+Array.prototype.isContact = function(e) {
+	for(var i=0;i<this.length;i++){  
+		if(this[i] == e)  return true;  
+	}  
+	return false;  
+}
+</script>
+
+
+<style type="text/css">
+.footer_copyright{
+	border-top: 1px solid #d1d1d1;
+	width: 100%;
+	margin-top:40px;
+}
+.copyright_content{
+	color: #999;
+	font-size: 12px;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+}
+.copyright_content span{
+	margin: auto 10px;
+}
+</style>
+
+<div class="footer_copyright">
+	<div class="copyright_content">中国电信集团<span>|</span>Copyright©2014中国电信<span>|</span>客服热线：020-8511&nbsp;5363</div>
+</div>
+
+
+    </div>
+    <div class="addCarDialog">
+    	<div style="width:79px;height:66px;margin-left:95.5px;margin-top:35px;" ><img style="width:79px;height:66px;" src="images/icon16.png"/></div>
+    	<div style="text-align:center;width:270px;height:30px;font-size:30px;border:0px solid red; margin-top:131px;color:#fff;font-weight: bold;">已添加到购物车</div>
+    </div>
+    <div id="anDiv" style="position:absolute;display:none;">
+    	<img alt="" src="images/T-icon8.png"/>
+	</div>
+<script>
+	/**** 改版 *****/
+	var trafficList = "";
+	var eachOrderPayAmount = "";
+	var firstPayAmount = "";
+	var partnerOrderCount = "";
+	/**
+	* 选择运营商tab
+	*/
+	function selectOperatorTab(operator){
+		$(".tabs_optr div").removeClass("tab_1_select");
+		$(".tabs_optr div").removeClass("tab_2_select");
+		$(".tabs_optr div").removeClass("tab_3_select");
+		$(".tabs_optr div").removeClass("defaultTab");
+		$(".tab_1_triangle").hide();
+		$(".tab_2_triangle").hide();
+		$(".tab_3_triangle").hide();
+		$("#uploadUsers_form_purchaseSelection input[name='operator']").val("");
+		$("#uploadUsers_form_purchaseSelection input[name='price']").val("");
+		var buyNum = $("input[id $='_num_"+operator+"']").val();
+		$("#uploadUsers_form_purchaseSelection input[name='trafficNum']").val(buyNum); 
+	
+		//初始样式
+		if(hasCtcc){
+			$("#tab_1_id").addClass("defaultTab");
+		}
+		if(hasCucc){
+			$("#tab_2_id").addClass("defaultTab");
+		}
+		if(hasCmcc){
+			$("#tab_3_id").addClass("defaultTab");
+		}
+		var tip = ""
+		if(operator == 1){
+			tip = "温馨提示：流量包为省内流量，目前支持电信2G、3G、4G用户，其中陕西4G用户除外。";
+		} else if(operator == 2){
+			tip = "温馨提示：流量包为国内流量，目前支持联通2G、3G、4G用户，其中内蒙古2G/3G用户、广西、江西、云南、天津、北京、黑龙江、河北、辽宁、四川、吉林、安徽2G用户除外。";
+		} else if(operator == 3){
+			tip = "暂不支持移动用户订购流量";
+		}
+		//流量包提示
+		if(tip != "")
+		$("#traffic_tip_id").html(tip);
+		doTrafficHtml(trafficList, operator);
+		$(".tab_"+operator+"_triangle").show();
+		
+		$("#tab_"+operator+"_id").removeClass("defaultTab");
+		$("#tab_"+operator+"_id").addClass("tab_"+operator+"_select");
+		$("#uploadUsers_form_purchaseSelection input[name='operator']").val(operator);
+		doActAmount();
+		var tmp = $("#selectTraffic_"+operator+"").val().split(",");
+		selectTraffic($("div[id $='_"+tmp[1]+"'] "), tmp[0], tmp[1], tmp[2], tmp[3]);
+	}
+	
+	//返回流量包html
+	function doTrafficHtml(trafficList, operator){
+		var html = "";
+		//清空流量包值
+		$("#uploadUsers_form_purchaseSelection input[name='platOfferId']").val("");
+		for(i = 0; i<trafficList.length; i++){
+			if(trafficList[i].operator == operator){
+				var platOfferId = 0;
+				if(trafficList[i].platOfferId && parseInt(trafficList[i].platOfferId) != 0){
+					platOfferId = trafficList[i].platOfferId;
+				} else {
+					platOfferId = trafficList[i].offerId;
+				}
+				html += '<div class="list_traffic" id="list_traffic_'+platOfferId+'" onclick="selectTraffic(this,'+operator+','+platOfferId+','+trafficList[i].traffic+','+trafficList[i].price+')">'
+					 + '<div class="traffic_icon"><div class="lit_icon"></div></div>'
+					 + '<div class="traffic_info"><span class="num">'+trafficList[i].traffic+'</span>'
+					 + '<span class="unit">M</span><span class="price">/'+Digit.round2Str(trafficList[i].price/100, 2)+'元</span></div></div>'
+			}
+		}
+		if(html == ""){
+			html = "暂无数据！";
+		}
+		$("#traffic_goods_id_2").html(html);
+	}
+	
+	/**
+	* 选择流量包
+	*/
+	function selectTraffic(obj, operator, platOfferId, traffic, price){
+		$(".list_traffic").find("div:first").removeClass();
+		$(".list_traffic").find("div:first").addClass("traffic_icon");
+		$(obj).find("div:first").removeClass();
+		$(obj).find("div:first").addClass("traffic_icon_select");
+		
+		$(".list_traffic").find("div:last").removeClass();
+		$(".list_traffic").find("div:last").addClass("traffic_info");
+		$(obj).find("div:last").removeClass();
+		$(obj).find("div:last").addClass("traffic_info traffic_info_select");
+		
+		$("#uploadUsers_form_purchaseSelection input[name='platOfferId']").val(platOfferId);
+		$("#uploadUsers_form_purchaseSelection input[name='traffic']").val(traffic);
+		$("#uploadUsers_form_purchaseSelection input[name='price']").val(price);
+		doActAmount();
+		$("#selectTraffic_"+operator+"").val(operator+","+platOfferId+","+traffic+","+price);	
+	}
+	
+	/**
+	* 展示购物车列表
+	**/
+	function showBuyCarDetail(obj){
+		$(obj).hide();
+		//$("#buyCar_list_id").show(500);
+		$("#buyCar_list_id").animate({width: 'toggle'});   
+		//$("#buyCar_list_id").css('height',document.body.scrollHeight);
+		isShowShopCarBtn(1);
+	}
+	
+	/**
+	* 展示购物车列表
+	**/
+	function hideBuyCarDetail(){
+		isShowShopCarBtn(0);
+		$("#buyCar_list_id").hide(500);
+		$("#buyCar_tab_id").show(500);
+	}
+	
+	//立即购买（先加入购物车后支付）
+	function goBuyOrder(){
+		//加入购物车
+		var platOfferId = $("#uploadUsers_form_purchaseSelection input[name='platOfferId']").val();
+		var trafficNum = $("#uploadUsers_form_purchaseSelection input[name = 'trafficNum']").val();
+		var operator = $("#uploadUsers_form_purchaseSelection input[name='operator']").val();
+		if(!platOfferId){
+			alert("请选择流量包！");
+			return;
+		}
+		if(!trafficNum || trafficNum<=0){
+			alert("请输入购买数量！");
+			return;
+		}
+		
+		showLoadingDiv();
+		$.ajax({
+			url : "/payonline/purchase/getRechargeRequeset.do", 
+			type:"post",
+			dataType:"json",
+			async : false,
+			data:{'ssid': getClientSsid()},
+			success:function(data){
+				hideLoadingDiv();
+				if(!checkIsLogin(data, "")){
+					//未登录则存cookie
+					var obj = new Object();
+			       	obj.operator = operator;
+			       	obj.platOfferId = platOfferId;
+			       /* 	obj.traffic = traffic;
+			       	obj.price = price; */
+			       	obj.trafficNum = trafficNum;
+			       	obj.isBuy = 1;
+					addCookieSingle(obj);
+					window.location.href = "/payonline/usercommon/toLoginPage.do";
+					return;
+				}
+				eachOrderPayAmount = data.eachOrderPayAmount;
+				firstPayAmount = data.firstPayAmount;
+				partnerOrderCount = data.partnerOrderCount;
+				
+			}
+		});
+		var price = $("#uploadUsers_form_purchaseSelection input[name='price']").val();
+		var num = $("#uploadUsers_form_purchaseSelection input[name='trafficNum']").val();
+		if(!price) price = 0;
+		if(!num) num = 0;
+		num = Digit.round2Str(num/100, 2);
+		var act_pay = price*num;
+		if (partnerOrderCount == "" || partnerOrderCount == 0) {
+			if (act_pay < firstPayAmount) {
+				alert("首次下单金额不得小于"+firstPayAmount+"元");
+				return;
+			}
+		}
+		if (act_pay < eachOrderPayAmount) {
+			alert("每笔订单的金额不得小于"+eachOrderPayAmount+"元");
+			return;
+		}
+		showLoadingDiv();
+		$.ajax({
+			url : "/payonline/purchase/addBuyCar.do", 
+			type:"post",
+			dataType:"json",
+			data:{"platOfferId":platOfferId,"validateNum":trafficNum, "isBuy":1,'ssid': getClientSsid()},
+			success:function(data){
+				hideLoadingDiv();
+				if(!checkIsLogin(data, "")){
+					//未登录则存cookie
+					var obj = new Object();
+			       	obj.operator = operator;
+			       	obj.platOfferId = platOfferId;
+			       /* 	obj.traffic = traffic;
+			       	obj.price = price; */
+			       	obj.trafficNum = trafficNum;
+			       	obj.isBuy = 1;
+					addCookieSingle(obj);
+					window.location.href = "/payonline/usercommon/toLoginPage.do";
+					return;
+				}
+				if(data.msg == "success"){
+					//去下单；
+					var orderId = data.orderId;
+					//window.location = "/payonline/purchase/buyCarRecordIndex.do?orderId="+orderId + "&ssid=" + getClientSsid();
+					window.location = "/payonline/purchase/toPayPage.do?orderId="+orderId+"&ssid=" + getClientSsid();
+				} else {
+					alert('系统繁忙。。。请稍后再试！');  
+				}
+			}
+		});
+	}
+	//加入购物车
+	function addToBuyCar(){
+		var platOfferId = $("#uploadUsers_form_purchaseSelection input[name='platOfferId']").val();
+		if(!platOfferId){
+			alert("请选择流量包！");
+			return;
+		}
+		var trafficNum = $("#uploadUsers_form_purchaseSelection input[name='trafficNum']").val();
+		if(trafficNum<1){
+			alert("请输入购买数量！");
+			return;
+		}
+		var operator = $("#uploadUsers_form_purchaseSelection input[name='operator']").val();
+		if(operator != 1 && operator != 2 && operator != 3){
+			alert("系统繁忙，请刷新再试！");
+			return;
+		}
+		showLoadingDiv();
+		$.ajax({
+			url : "/payonline/purchase/addBuyCar.do", 
+			type:"post",
+			dataType:"json",
+			data:{"platOfferId":platOfferId,"validateNum":trafficNum, 'ssid': getClientSsid()},
+			success:function(data){
+				hideLoadingDiv();
+				if(!checkIsLogin(data, "")){
+					//未登录则存cookie
+					var obj = new Object();
+			       	obj.operator = operator;
+			       	obj.platOfferId = platOfferId;
+			       /* 	obj.traffic = traffic;
+			       	obj.price = price; */
+			       	obj.trafficNum = trafficNum;
+			       	obj.isBuy = 0;
+			       	//var objString = JSON.stringify(obj); //JSON 数据转化成字符串
+ 					//$.cookie("tyll800_buyCar_single", objString,{path:"/"});
+			       //	document.cookie="userId=320; path=/";
+					addCookieSingle(obj);
+					window.location.href = "/payonline/usercommon/toLoginPage.do";
+					return;
+				}
+				if(data.msg == "success"){
+					//reset form
+					//$("#uploadUsers_form_purchaseSelection input[name='platOfferId']").val("");
+					$("#uploadUsers_form_purchaseSelection input[name = 'trafficNum']").val("1");
+					$("input[id $='_num_"+operator+"']").val(1);
+					doActAmount();
+					//$("#actually_paid_id").html("<span style='font-size: 40px;color:#ff6600;'>0</span><span style='font-size: 24px;color:#ff6600;'>.00</span>");
+					/* $(".addCarDialog").show();
+					$(".addCarDialog").delay(2000).fadeOut("slow"); */
+					//加入购物车动画
+					doBuyCarAnm();
+					getBuyCarGoods();
+				} else {
+					alert('系统繁忙。。。请稍后再试！');  
+				}
+			}
+		});
+		/* var operator = $("#uploadUsers_form_purchaseSelection input[name='operator']").val();
+		var traffic = $("#uploadUsers_form_purchaseSelection input[name='traffic']").val();
+		var price = $("#uploadUsers_form_purchaseSelection input[name='price']").val();
+		if(operator != 1 && operator != 2 && operator != 3){
+			alert("数据错误！");
+			return;
+		}
+		if(traffic == "" || price == ""){
+			alert("数据错误！");
+			return;
+		}
+		var platOfferId = $("#uploadUsers_form_purchaseSelection input[name='platOfferId']").val();
+		if(!platOfferId){
+			alert("请选择流量规格！");
+			return;
+		}
+		var trafficNum = $("#uploadUsers_form_purchaseSelection input[name='trafficNum']").val();
+		if(trafficNum<1){
+			alert("请输入要购买的数量！");
+			return;
+		}
+		
+	   	var obj = new Object();
+       	obj.operator = operator;
+       	obj.platOfferId = platOfferId;
+       	obj.traffic = traffic;
+       	obj.price = price;
+       	obj.trafficNum = trafficNum;
+		addCookie(obj);
+		$(".addCarDialog").show();
+		$(".addCarDialog").delay(2000).fadeOut("slow"); */
+	}
+	//获取购物车订单
+	function getBuyCarGoods(){
+		$.ajax({
+			url : "/payonline/purchase/getBuyCarGoods.do", 
+			type:"post",
+			data: {'ssid': getClientSsid()},
+			dataType:"json",
+			success:function(data){
+				var unPayList = data.unPayList;
+				//购物车总额
+				var carAmount = 0; 
+				//购物车订单数
+				var carOrders = 0;
+				var unPayHtml = buyCarList(unPayList);
+				if(unPayList)
+				for(i = 0; i<unPayList.length; i++){
+					carAmount += unPayList[i].frozenAmount;
+					carOrders ++;
+				} 
+				//是否显示购物车确认按钮
+				/* if(carOrders && carOrders>0){
+					isShowShopCarBtn(1);
+				} else {
+					isShowShopCarBtn(0);
+				} */
+				$("#goods_list_id").html(unPayHtml);
+				
+				//格式化小数点后两位
+				carAmount = Digit.round2Str(carAmount, 2);
+				var array = carAmount.split(".");
+				var msg = "<span style='font-size: 34px;color:#ff6600;'>" + array[0] + "</span>" + "<span style='font-size: 22px;color:#ff6600;'>." + array[1] + "</span>";
+				$("#car_orders_amount_id").html(msg);
+				
+				if(carOrders > 99){
+					carOrders = 99+"+";
+				}
+				$("#car_orders_id").html(carOrders);
+				$("#buyCar_count_id").html(carOrders);
+				$("#buyCar_tab_num").html(carOrders);
+			}
+		});
+	}
+	//右边购物车列表
+	function buyCarList(unPayList){
+		var unPayHtml = "";
+		var operatorName = "电信流量包";
+		if(unPayList)
+		for(i = 0; i<unPayList.length; i++){
+			if(unPayList[i].operator == 1){
+				operatorName = "电信流量包";
+			} else if(unPayList[i].operator == 2){
+				operatorName = "联通流量包";
+			} else if(unPayList[i].operator == 3){
+				operatorName = "移动流量包";
+			}
+					unPayHtml +='<div class="dis_good"><div class="delete_car_good" onclick="deleteCarGood(this,'+unPayList[i].orderId+')"></div>'
+					+ '<div style="height: 16px; line-height: 16px;padding-top:20px;margin-left:20px;margin-right:2px;">'
+					+ '<div style="height:16px;line-height: 16px;">'
+					+ '<img alt="" src="images/index_icon1'+unPayList[i].operator+'.png">'
+					+ '<span style="margin-left:10px;">'+operatorName+'</span></div>'
+					+ '<table cellpadding="0" cellspacing="0" style="margin-top:15px;" ><tr><td>规格：'+unPayList[i].traffic+'M</td><td>数量：'+unPayList[i].validUsers+'个</td></tr>'
+					+ '<tr><td>单价：'+Digit.round2Str(unPayList[i].price/100, 2)+'元</td><td>'
+					+ '金额：<span class="numberColor" style="font-size: 12px;">￥'+Digit.round2Str(unPayList[i].frozenAmount, 2)+'</span></td></tr>'
+					+ '</table></div></div>';
+		}
+		$("#corfirmOrder_id").removeClass();
+		if(unPayList && unPayList.length>0){
+			//购物车确认订单
+			$("#corfirmOrder_id").bind("click",function(){
+				$("#corfirmOrder_id").unbind();
+				window.location.href="/payonline/purchase/buyCarRecordIndex.do?orderId=0&ssid=" + getClientSsid();
+			});
+			$("#corfirmOrder_id").addClass("go-button");
+		} else {
+			$("#corfirmOrder_id").unbind();
+			$("#corfirmOrder_id").addClass("go-button_0");
+		}
+		if(unPayHtml == ""){
+			
+			unPayHtml = '<div class="dis_good" style="text-align:center;font-size:12px; color:#aaa" ><div style="width:36px;height:41px; margin:0 auto;padding-top:30px;margin-bottom:20px;"><img alt="" src="images/T-icon7.png">'
+					  + '</div>哎哟，来都来了，不买点流量么！</div>';
+		}
+		return unPayHtml;
+	}
+	//删除购物车（库）
+	function deleteCarGood(obj, orderId){
+		//删除购物车
+		if(!orderId){
+			alert("删除错误！");
+		}
+		if(confirm('确认删除？')){
+			showLoadingDiv();
+			$.ajax({
+				url : "/payonline/purchase/deleteBuyCar.do", 
+				type:"post",
+				dataType:"json",
+				data:{"orderId":orderId,'ssid': getClientSsid()},
+				success:function(msg){
+					hideLoadingDiv();
+					if(msg == 1){
+						getBuyCarGoods();
+						hideLoadingDiv();
+						//alert("删除成功！");
+						/* $(obj).parent().remove(); 
+						var carGooods = $("#car_orders_id").text();
+						carGooods--;
+						$("#car_orders_id").html(carGooods); */
+					} else {
+						alert("删除失败");
+					}
+				}
+			});
+		}
+	}
+	//删除购物车（cookie）
+	function deleteCarGoodCookie(platOfferId){
+		//删除购物车
+		if(!platOfferId){
+			alert("删除错误！");
+		}
+		deleteCookie(platOfferId);
+	}
+	//渲染购物车
+	function doBuyCarTotal(){
+		//渲染购物车总数
+		$("#buyCar_count_id").html(getBuyCarTotal());
+		$("#buyCar_tab_num").html(getBuyCarTotal());
+		$("#car_orders_id").html(getBuyCarTotal());
+		//渲染购物车列表
+		doBuyCarList();
+	}
+	//计算购物车总数
+	function getBuyCarTotal(){
+		var list = $.cookie(cookieKey);
+		var total = 0;
+		if(list){
+			list = JSON.parse(list);
+			return list.length;
+		}
+		return total;
+	}
+	//获取购物车的列表
+	function doBuyCarList(){
+		var list = $.cookie(cookieKey);
+		var html = "";
+		if(list){
+			list = JSON.parse(list);
+			for(i = 0; i<list.length; i++){
+				var map = new Object();
+				map = list[i].value;
+				html +='<div class="dis_good"><div class="delete_car_good" onclick="deleteCarGood('+map.platOfferId+')"></div>'
+				+ '<div style="height: 16px; line-height: 16px;padding-top:20px;margin-left:20px;margin-right:20px;">'
+				+ '<div style="height:16px;line-height: 16px;">'
+				+ '<img alt="" src="images/index_icon11.png">'
+				+ '<span style="margin-left:10px;">电信流量包</span></div>'
+				+ '<table cellpadding="0" cellspacing="0" style="margin-top:15px;" ><tr><td>规格：'+map.traffic+'M</td><td>数量：'+map.trafficNum+'个</td></tr>'
+				+ '<tr><td>单价：'+Digit.round2Str(map.price/100, 2)+'元</td><td>'
+				+ '金额：<span class="numberColor" style="font-size: 12px;">￥'+Digit.round2Str(map.price/100, 2)*map.trafficNum+'</span></td></tr>'
+				+ '</table></div></div>';
+			}
+		}
+		$("#goods_list_id").html(html);
+	}
+	//购物车确认按钮
+	function isShowShopCarBtn(flag){
+		if(flag == 0){
+			$("#isShowShopCarBtn_0").hide(500);
+		} else {
+			//alert(document.body.scrollHeight-150);
+			//$("#isShowShopCarBtn_0").css('top','100%');
+			$("#isShowShopCarBtn_0").show(500);
+		}
+	}
+	
+	function doReduceOrAddCount(num){
+		num = parseInt(num);
+		var isTrue = false;
+		if(num == 1){
+			isTrue = setAmount.reduce('#trafficNum_purchaseSelection');
+		}else if(num == 2){
+			isTrue = setAmount.add('#trafficNum_purchaseSelection');
+		}
+		if(isTrue){
+			doActAmount();
+			var id = $("div[class $='_select']").attr("id");//获取选中运营商
+			if (id.indexOf("1") != -1) { //电信
+				$("#buyCtcc_num_1").val($("#trafficNum_purchaseSelection").val());
+			} else if(id.indexOf("2") != -1){
+				$("#buyCucc_num_2").val($("#trafficNum_purchaseSelection").val());
+			} else if(id.indexOf("3")){
+				$("#buyCmcc_num_3").val($("#trafficNum_purchaseSelection").val());
+			}
+		}
+		
+		
+	}
+	//计算实付款
+	function doActAmount(){
+		numOnblur('trafficNum_purchaseSelection');
+		var price = $("#uploadUsers_form_purchaseSelection input[name='price']").val();
+		var num = $("#uploadUsers_form_purchaseSelection input[name='trafficNum']").val();
+		if(!price) price = 0;
+		if(!num) num = 0;
+		num = Digit.round2Str(num/100, 2)
+		var act_pay = price*num;
+		var array = (Digit.round2Str(act_pay, 2)).split(".");
+		var msg = "<span style='font-size: 40px;color:#ff6600;'>" + array[0] + "</span>" + "<span style='font-size: 24px;color:#ff6600;'>." + array[1] + "</span>";
+		$("#actually_paid_id").html(msg);
+	}
+	
+	//初始化运营商tab
+	var hasCtcc = false;//电信包
+	var hasCucc = false;//联通包
+	var hasCmcc = false;//移动包
+	function intOperatorTab(){
+		for(i = 0; i<trafficList.length; i++){
+			if(trafficList[i].operator == 1){
+				hasCtcc = true;
+			} else if(trafficList[i].operator == 2){
+				hasCucc = true;
+			} else if(trafficList[i].operator == 3){
+				hasCmcc = true;
+			}
+		}
+		//电信包
+		if(hasCtcc){
+			$("#tab_1_id").bind("click",function(){
+				 selectOperatorTab(1);
+			});
+			 $("#tab_1_id").removeClass("disableTab");
+			 $("#tab_1_id").addClass("tab_1 defaultTab");
+		}
+		//联通包
+		if(hasCucc){
+			$("#tab_2_id").bind("click",function(){
+				selectOperatorTab(2);
+			});
+			$("#tab_2_id").removeClass("disableTab");
+			$("#tab_2_id").addClass("tab_2 defaultTab");
+		}
+		//移动包
+		if(hasCmcc){
+			$("#tab_3_id").bind("click",function(){
+				selectOperatorTab(3);
+			});
+			$("#tab_3_id").removeClass("disableTab");
+			$("#tab_3_id").addClass("tab_3 defaultTab");
+		}
+		
+		//默认选中第一个
+		if(hasCtcc){
+			$("#tab_1_id").trigger("click");
+		} else if(hasCucc){
+			$("#tab_2_id").trigger("click");
+		} else if(hasCmcc){
+			$("#tab_3_id").trigger("click");
+		}
+	}
+	//输入购买数量计算金额
+	function onkeyupDoValue(obj){
+		$(obj).val($(obj).val().replace(/[^\d]/g,''));
+		setAmount.modify('#trafficNum_purchaseSelection')
+		doActAmount();
+		var id = $("div[class $='_select']").attr("id");//获取选中运营商
+		if (id.indexOf("1") != -1) { //电信
+			$("#buyCtcc_num_1").val($("#trafficNum_purchaseSelection").val());
+		} else if(id.indexOf("2") != -1){
+			$("#buyCucc_num_2").val($("#trafficNum_purchaseSelection").val());
+		} else if(id.indexOf("3")){
+			$("#buyCmcc_num_3").val($("#trafficNum_purchaseSelection").val());
+		}
+		//this.value=this.value.replace(/[^\d]/g,'')
+	}
+	//检查是否登陆
+	function checkIsLogin(result, proj){
+		if( result != undefined && result.resultCode != undefined && result.resultCode == -2){
+			return false;
+		}
+		return true;
+	}
+	//关闭客服
+	function closeCustomerService(){
+		$("#customerService_id").hide();
+	}
+	//加入购物车动画效果
+	function doBuyCarAnm(){
+		var ltop = $("#buyCar_tab_id").offset().top-42;
+		var lleft = $("#buyCar_tab_id").offset().left;
+	 	var x = $("#addToBuyCar_btn_id").offset().left+50;
+		var y = $("#addToBuyCar_btn_id").offset().top;
+		$("#anDiv").css({'left':x,'top':y});
+		$("#anDiv").show();
+		$("#anDiv").animate({'left':lleft-150,'top': ltop-150},600,function() {
+				$("#anDiv").animate({left:lleft+"px","top": ltop+"px"},700,function(){
+					$("#anDiv").css({'left':x,'top':y});
+					$("#anDiv").hide();
+				});
+		});
+	}
+	$(function() {
+		$("#car_goods_id").css({'max-height':$(window).height()-205});
+		$(window).resize(function(){
+			$("#car_goods_id").css({'max-height':$(window).height()-205});
+		});
+		//清除cookie
+		deleteCookieSingle();
+		//流量包（包括三大运营商）
+		trafficList = [{"activityId":0,"contractId":"","createTime":{"date":20,"day":2,"hours":10,"minutes":11,"month":0,"seconds":25,"time":1421719885000,"timezoneOffset":-480,"year":115},"offerId":0,"operId":"admin","operTime":{"date":20,"day":2,"hours":10,"minutes":11,"month":0,"seconds":28,"time":1421719888000,"timezoneOffset":-480,"year":115},"operator":1,"partnerId":0,"platOfferId":103000,"platOfferName":"电信10M省内通用包","price":200,"productForm":3,"status":1,"traffic":10},{"activityId":0,"contractId":"","createTime":{"date":20,"day":2,"hours":10,"minutes":13,"month":0,"seconds":40,"time":1421720020000,"timezoneOffset":-480,"year":115},"offerId":0,"operId":"admin","operTime":{"date":20,"day":2,"hours":10,"minutes":13,"month":0,"seconds":42,"time":1421720022000,"timezoneOffset":-480,"year":115},"operator":1,"partnerId":0,"platOfferId":103001,"platOfferName":"电信30M省内通用包","price":500,"productForm":3,"status":1,"traffic":30},{"activityId":0,"contractId":"","createTime":{"date":20,"day":2,"hours":10,"minutes":16,"month":0,"seconds":52,"time":1421720212000,"timezoneOffset":-480,"year":115},"offerId":0,"operId":"admin","operTime":{"date":20,"day":2,"hours":10,"minutes":16,"month":0,"seconds":54,"time":1421720214000,"timezoneOffset":-480,"year":115},"operator":1,"partnerId":0,"platOfferId":103002,"platOfferName":"电信100M省内通用包","price":1000,"productForm":3,"status":1,"traffic":100},{"activityId":0,"contractId":"","createTime":{"date":20,"day":2,"hours":10,"minutes":17,"month":0,"seconds":35,"time":1421720255000,"timezoneOffset":-480,"year":115},"offerId":0,"operId":"admin","operTime":{"date":20,"day":2,"hours":10,"minutes":17,"month":0,"seconds":38,"time":1421720258000,"timezoneOffset":-480,"year":115},"operator":1,"partnerId":0,"platOfferId":103003,"platOfferName":"电信200M省内通用包","price":1500,"productForm":3,"status":1,"traffic":200},{"activityId":0,"contractId":"","createTime":{"date":20,"day":2,"hours":10,"minutes":18,"month":0,"seconds":18,"time":1421720298000,"timezoneOffset":-480,"year":115},"offerId":0,"operId":"admin","operTime":{"date":20,"day":2,"hours":10,"minutes":18,"month":0,"seconds":20,"time":1421720300000,"timezoneOffset":-480,"year":115},"operator":1,"partnerId":0,"platOfferId":103004,"platOfferName":"电信500M省内通用包","price":3000,"productForm":3,"status":1,"traffic":500},{"activityId":0,"contractId":"","createTime":{"date":20,"day":2,"hours":10,"minutes":33,"month":0,"seconds":28,"time":1421721208000,"timezoneOffset":-480,"year":115},"offerId":0,"operId":"admin","operTime":{"date":20,"day":2,"hours":10,"minutes":33,"month":0,"seconds":29,"time":1421721209000,"timezoneOffset":-480,"year":115},"operator":2,"partnerId":0,"platOfferId":103013,"platOfferName":"联通50M国内通用包","price":800,"productForm":3,"status":1,"traffic":50},{"activityId":0,"contractId":"","createTime":{"date":20,"day":2,"hours":10,"minutes":34,"month":0,"seconds":1,"time":1421721241000,"timezoneOffset":-480,"year":115},"offerId":0,"operId":"admin","operTime":{"date":20,"day":2,"hours":10,"minutes":34,"month":0,"seconds":3,"time":1421721243000,"timezoneOffset":-480,"year":115},"operator":2,"partnerId":0,"platOfferId":103014,"platOfferName":"联通200M国内通用包","price":2000,"productForm":3,"status":1,"traffic":200}];
+		//默认电信
+		doTrafficHtml(trafficList, 1);
+		//根据流量包初始化tab
+		intOperatorTab();
+		//计算购物车数量(cookie)
+		//doBuyCarTotal();
+		//计算购物车数量(非cookie)
+		getBuyCarGoods();
+		//购物车效果
+		$(document).bind('click',function(e){
+             var e = e || window.event; //浏览器兼容性
+             var elem = e.target || e.srcElement;
+             while (elem) { //循环判断至跟节点，防止点击的是div子元素
+                 if (elem.id && (elem.id=='buyCar_list_id' || elem.id == 'buyCar_tab_id')) {
+                     return;
+                 }
+                 elem = elem.parentNode;
+             }
+			hideBuyCarDetail();
+         });
+	});
+	
+	/**** 改版  END *****/
+	
+</script> 
+  </body>
+</html>

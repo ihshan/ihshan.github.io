@@ -1,0 +1,114 @@
+.base_div{
+	padding-top: 30px;
+	width: 964px;
+}
+
+table.dataGridTable{
+	width: 964px;
+}
+.op-topnavbar li {
+	float: right;
+	position:relative; 
+}
+.menu-sp{
+	padding-left: 15px;
+	padding-right: 15px;
+}
+.op-nav{width:100%;}
+.op-topnav{
+	height: 26px;
+	line-height: 26px;
+	background: #000 50%;
+	z-index:9999;
+	position:relative;
+	margin: auto auto;
+}
+.op-topnav li{
+	float:right; 
+	font-size:12px;
+	list-style:none; 
+	line-height: 26px;
+	color:#999;
+	margin: 0;
+}
+
+.op-topnavbar{
+	margin:0 auto; 
+	width: 970px;
+}
+.op-topnavbar a{
+	display:block;
+	height: 26px;
+	line-height: 26px;
+	text-align: center;
+	margin: 0 0;
+	padding: 0px 15px;
+	color: #AAAAAA;
+	text-decoration:none;	
+	border-top:none;
+	float: left;
+}
+.op-topnavbar span{
+	float: left;
+	color: #55585e;
+}
+.op-topnavbar a:hover{
+	background-color: #4B4F55;
+}
+.op-subnav{
+	width:100%;
+	height: 60px;
+	background: #F3F5F5;
+	border-bottom: 1px solid #d6d6d6;
+}
+.op-menu{
+	width: 964px;
+	height: 60px; 
+	margin:0 auto; 
+	border:#009 solid 0px;
+}
+.op-logo{
+	width:265px;
+	height: 38px; 
+	margin-top: 11px;
+	float:left;
+}
+.op-submenu{
+}
+.op-menulist{
+	width: 695px;
+	float: left;
+	height: 60px; 
+	margin:auto auto; 
+}
+.op-menulist div{
+	height: 60px;
+	line-height: 60px;
+	color:#444444;
+	float: right;
+	cursor:pointer;
+	text-align:center;
+	font-size:16px;
+	font-weight:bolder;
+	padding-left: 24px;
+	padding-right: 24px;
+}
+.op-menulist a{
+	text-decoration: none;
+}
+.op-menulist .menuselect{
+	color: #fff;
+	background: #00A4EB;
+}
+.op-menulist .menumouseover{
+	background: #D9D9D9;
+}
+
+/** loading */
+*{margin:0;padding:0;list-style-type:none;}
+a,img{border:0;}
+.overlay{position:fixed;top:0;right:0;bottom:0;left:0;z-index:99998;width:100%;height:100%;_padding:0 20px 0 0;background:#f6f4f5;display:none;}
+.showbox{position:fixed;top:0;left:50%;z-index:99999;opacity:0;filter:alpha(opacity=0);margin-left:-80px; margin-top: -350px;display: none;}
+#AjaxLoading{border:1px solid #8CBEDA;color:#37a;font-size:12px;font-weight:bold;height: 52px;line-height: 52px;}
+#AjaxLoading div.loadingWord{width:180px;height:50px;line-height:50px;border:1px solid #fff;background:#fff;}
+#AjaxLoading img{margin:10px 15px;float:left;display:inline;}
